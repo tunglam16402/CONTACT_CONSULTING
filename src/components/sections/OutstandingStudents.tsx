@@ -1,6 +1,12 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useInView } from "framer-motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface Student {
   name: string;
@@ -30,8 +36,16 @@ const students: Student[] = [
     name: "Bùi Minh Đức",
     info: "Sinh ngày: 04/09/2003, IG: duc_ko_gay. Học sinh hệ trung cấp 9+ liên thông lên cao đẳng tại lớp CĐ43TKDH-LT, đã tốt nghiệp tại trường HNIVC. Hiện nay đang học Đại Học Mỹ Thuật Công Nghiệp.",
     projects: [
-      { title: "Dự án A", image: "/assets/projects/project3.jpg" },
-      { title: "Dự án B", image: "/assets/projects/project4.jpg" },
+      {
+        title:
+          "Sản phẩm về thiết kế poster cho một band nhạc mang tên RadioHead",
+        image: "/assets/images/buiminhduc_project1.png",
+      },
+      {
+        title:
+          "Sản phẩm về thiết kế nhân vật hoạt hình và nhận vật đại diện của trường HNIVC",
+        image: "/assets/images/buiminhduc_project2.png",
+      },
     ],
     photo: "/assets/images/SVtieubieu2.png",
   },
@@ -60,6 +74,7 @@ export default function SinhVienTieuBieu() {
   const isInView = useInView(sectionRef, { amount: 0.5 });
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [activeTab, setActiveTab] = useState("info");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Khi section không còn trong viewport, reset (nếu cần)
   useEffect(() => {
@@ -286,28 +301,50 @@ export default function SinhVienTieuBieu() {
                       >
                         DỰ ÁN TIÊU BIỂU
                       </motion.h3>
-                      <motion.ul
-                        className="list-disc pl-5 text-gray-700 space-y-2"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        {selectedStudent.projects.map((project, idx) => (
-                          <motion.li key={idx} className="mb-4">
-                            <motion.div className="font-medium mb-2">
-                              {project.title}
-                            </motion.div>
-                            <div className="relative w-full h-48">
-                              <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover rounded-md"
-                              />
-                            </div>
-                          </motion.li>
-                        ))}
-                      </motion.ul>
+
+                      <Carousel className="w-full h-screen">
+                        <CarouselContent>
+                          {selectedStudent.projects.map((project, idx) => (
+                            <CarouselItem key={idx} className="w-full h-screen">
+                              <Dialog
+                                onOpenChange={(open) =>
+                                  !open && setSelectedImage(null)
+                                }
+                              >
+                                <DialogTrigger asChild>
+                                  <div
+                                    className="relative w-full h-full cursor-pointer"
+                                    onClick={() =>
+                                      setSelectedImage(project.image)
+                                    }
+                                  >
+                                    <Image
+                                      src={project.image}
+                                      alt={project.title}
+                                      fill
+                                      className="object-cover"
+                                    />
+                                    <div className="absolute bottom-5 left-5 bg-black bg-opacity-50 text-white p-3 rounded-md">
+                                      {project.title}
+                                    </div>
+                                  </div>
+                                </DialogTrigger>
+                                <DialogContent className="w-auto max-w-4xl">
+                                  {selectedImage && (
+                                    <Image
+                                      src={selectedImage}
+                                      alt="Expanded Image"
+                                      width={800}
+                                      height={600}
+                                      className="rounded-lg"
+                                    />
+                                  )}
+                                </DialogContent>
+                              </Dialog>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                      </Carousel>
                     </div>
                   ) : null}
 

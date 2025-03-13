@@ -78,17 +78,17 @@ const About = () => {
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
             className="text-left"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-6xl font-bold uppercase text-gray-900 mb-4">
               Giới Thiệu
             </h2>
             <Separator className="w-16 mb-4 bg-gray-800" />
-            <p className="text-gray-700 text-lg leading-relaxed">
+            <p className="text-gray-700 text-xl leading-relaxed">
               Khoa Công nghệ thông tin được thành lập năm 1993 với đội ngũ giảng
               viên chất lượng cao, đạt chuẩn Tiến sĩ, Thạc sĩ. Có nhiều thành
               tích trong công tác bồi dưỡng giáo viên giỏi và huấn luyện thí
               sinh dự thi Kỹ năng nghề thành phố, quốc gia và khu vực ASIA.
             </p>
-            <ul className="mt-6 space-y-2 text-gray-700">
+            <ul className="mt-6 space-y-2 text-lg text-gray-700">
               <li className="flex items-center space-x-2">
                 <span className="text-green-600">✔</span>
                 <span>Đội ngũ giảng viên hàng đầu</span>

@@ -30,7 +30,7 @@ export default function AnimatedHeading({ text }: AnimatedHeadingProps) {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="text-4xl md:text-5xl font-bold text-white leading-tight drop-shadow-lg"
+      className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight drop-shadow-lg"
     >
       {lines.map((line, i) => (
         <div key={i}>

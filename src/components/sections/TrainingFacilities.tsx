@@ -91,15 +91,6 @@ export default function TrainingFacilities() {
         >
           {/* Header */}
           <div className="text-center mb-16">
-            <motion.span
-              className="inline-block text-blue-400 font-medium mb-4 tracking-wider"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              TRANG THIẾT BỊ
-            </motion.span>
             <motion.h2
               className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: -20 }}
@@ -164,7 +155,7 @@ export default function TrainingFacilities() {
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.8 }}
             >
-              <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative w-full h-[531px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src={trainingImages[currentImage].src}
                   alt={trainingImages[currentImage].title}

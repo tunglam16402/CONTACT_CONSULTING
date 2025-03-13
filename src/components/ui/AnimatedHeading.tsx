@@ -20,17 +20,23 @@ const letterVariants = {
 
 interface AnimatedHeadingProps {
   text: string;
+  className?: string;
 }
 
-export default function AnimatedHeading({ text }: AnimatedHeadingProps) {
-  // Tách theo dòng dựa vào ký tự \n
+export default function AnimatedHeading({
+  text,
+  className,
+}: AnimatedHeadingProps) {
   const lines = text.split("\n");
+
   return (
     <motion.h1
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight drop-shadow-lg"
+      className={`text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight drop-shadow-lg ${
+        className || ""
+      }`}
     >
       {lines.map((line, i) => (
         <div key={i}>

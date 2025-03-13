@@ -523,14 +523,14 @@ export default function Home() {
             initial="hidden"
             animate="show"
           >
-            <motion.p
+            {/* <motion.p
               className="mb-4 text-white text-xl drop-shadow-lg"
               variants={textVariants}
               transition={{ duration: 0.8 }}
             >
               ỦY BAN NHÂN DÂN THÀNH PHỐ HÀ NỘI - TRƯỜNG CAO ĐẲNG NGHỀ CÔNG
               NGHIỆP HÀ NỘI - KHOA CÔNG NGHỆ THÔNG TIN
-            </motion.p>
+            </motion.p> */}
 
             {/* Animated Heading */}
             <AnimatedHeading

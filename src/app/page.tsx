@@ -14,6 +14,7 @@ import TrainingFacilities from "@/components/sections/TrainingFacilities";
 import TrainingProgram from "@/components/sections/TrainingProgram";
 import Activities from "@/components/sections/Activities";
 import Footer from "@/components/layout/Footer";
+import Cooperate from "@/components/sections/Cooperate";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -69,8 +70,6 @@ export default function Home() {
       setLoading(false);
       return;
     }
-
-    // Tăng progress từ 0 đến 100 trong 2.5 giây
     const startTime = Date.now();
     const duration = 2500; // 2.5 giây
 
@@ -82,7 +81,6 @@ export default function Home() {
       if (elapsed < duration) {
         requestAnimationFrame(updateProgress);
       } else {
-        // Đợi thêm 0.5 giây để hiệu ứng hoàn thành
         setTimeout(() => {
           setLoading(false);
           sessionStorage.setItem("splashDisplayed", "true");
@@ -93,7 +91,6 @@ export default function Home() {
     requestAnimationFrame(updateProgress);
   }, []);
 
-  // Xử lý mouse movement
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -579,10 +576,13 @@ export default function Home() {
       {/* Quy Mô Đào Tạo Section */}
       <TrainingFacilities />
 
+      {/* THỰC TẬP DOANH NGHIỆP VÀ HỢP TÁC QUỐC TẾ */}
+      <Cooperate />
+
       {/* Chương Trình Đào Tạo Section */}
       <TrainingProgram />
 
-      {/* OutstandingStudents Section */}
+      {/* sinh viên tiêu biểu Section */}
       <OutstandingStudents />
 
       {/* Hoạt Động Section */}

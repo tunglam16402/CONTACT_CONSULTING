@@ -2,6 +2,16 @@
 
 import { motion } from "framer-motion";
 import LazyRender from "@/components/ui/LazyRender";
+import {
+  CheckCircle2,
+  Code2,
+  Palette,
+  Network,
+  GraduationCap,
+  BookOpen,
+  Clock,
+  Briefcase,
+} from "lucide-react";
 
 const TrainingProgram = () => {
   const containerVariants = {
@@ -29,11 +39,22 @@ const TrainingProgram = () => {
     <LazyRender>
       <section
         id="chuongtrinh"
-        className="py-24 bg-gradient-to-b from-white to-gray-50"
+        className="py-24 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4">
+        {/* Animated Background */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-gray-800 mb-16 text-center"
+            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 text-center bg-clip-text text-transparent"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -41,6 +62,107 @@ const TrainingProgram = () => {
           >
             CHƯƠNG TRÌNH ĐÀO TẠO HỆ LIÊN THÔNG
           </motion.h2>
+          <motion.div
+            className="w-20 h-1 mb-16 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
+            initial={{ width: 0 }}
+            whileInView={{ width: 80 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          />
+
+          {/* Lợi ích và Cơ hội học tập */}
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {/* Lợi ích liên thông */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 relative group"
+            >
+              <div className="absolute -inset-px bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="text-2xl font-bold text-blue-400 mb-6 flex items-center gap-3">
+                  <GraduationCap className="w-8 h-8" />
+                  Lợi ích liên thông
+                </h3>
+                <div className="space-y-6">
+                  <div className="bg-white/5 p-6 rounded-lg backdrop-blur-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Clock className="w-6 h-6 text-blue-400" />
+                      <h4 className="text-xl font-semibold text-blue-300">
+                        Tiết kiệm thời gian và chi phí
+                      </h4>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed ml-9">
+                      Liên thông cho phép bạn chuyển tiếp từ trung cấp nghề lên
+                      cao đẳng nghề mà không cần phải học lại các môn đã học ở
+                      trình độ trung cấp.
+                    </p>
+                  </div>
+                  <div className="bg-white/5 p-6 rounded-lg backdrop-blur-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Briefcase className="w-6 h-6 text-blue-400" />
+                      <h4 className="text-xl font-semibold text-blue-300">
+                        Nâng cao trình độ chuyên môn
+                      </h4>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed ml-9">
+                      Chương trình liên thông giúp bạn tiếp tục học tập và phát
+                      triển kỹ năng chuyên môn, mở rộng kiến thức và cơ hội nghề
+                      nghiệp.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Cơ hội học tập */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 relative group"
+            >
+              <div className="absolute -inset-px bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="text-2xl font-bold text-blue-400 mb-6 flex items-center gap-3">
+                  <BookOpen className="w-8 h-8" />
+                  Cơ hội học tập
+                </h3>
+                <div className="space-y-6">
+                  <div className="bg-white/5 p-6 rounded-lg backdrop-blur-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Code2 className="w-6 h-6 text-blue-400" />
+                      <h4 className="text-xl font-semibold text-blue-300">
+                        Chương trình đa dạng
+                      </h4>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed ml-9">
+                      Cao đẳng nghề cung cấp nhiều ngành học khác nhau, từ kỹ
+                      thuật đến nghệ thuật, giúp bạn lựa chọn theo đam mê và sở
+                      thích cá nhân.
+                    </p>
+                  </div>
+                  <div className="bg-white/5 p-6 rounded-lg backdrop-blur-sm">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Palette className="w-6 h-6 text-blue-400" />
+                      <h4 className="text-xl font-semibold text-blue-300">
+                        Học tập thực tế
+                      </h4>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed ml-9">
+                      Cao đẳng nghề thường có chương trình học kết hợp giữa lý
+                      thuyết và thực hành, giúp bạn phát triển kỹ năng thực tế
+                      trong ngành nghề.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={containerVariants}
@@ -50,52 +172,86 @@ const TrainingProgram = () => {
           >
             <motion.div
               variants={itemVariants}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
+              className="bg-white/10 backdrop-blur-sm p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/20 relative group"
             >
-              <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-                Công nghệ thông tin (Ứng dụng phần mềm)
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Đào tạo: Chuyên viên quản trị hệ thống phần mềm; Chuyên viên
-                quản lý dữ liệu; Lập trình viên phần mềm ứng dụng; Chuyên viên
-                tư vấn và chuyển giao phần mềm ứng dụng; Chuyên viên thiết kế và
-                quản trị website; Tự khởi nghiệp trong lĩnh vực phát triển phần
-                mềm.
-              </p>
+              <div className="absolute -inset-px bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="text-2xl font-semibold text-blue-400 mb-6 flex items-center gap-3">
+                  <Code2 className="w-8 h-8" />
+                  Công nghệ thông tin (Ứng dụng phần mềm)
+                </h3>
+                <div className="space-y-4">
+                  {[
+                    "Chuyên viên quản trị hệ thống phần mềm",
+                    "Chuyên viên quản lý dữ liệu",
+                    "Lập trình viên phần mềm ứng dụng",
+                    "Chuyên viên tư vấn và chuyển giao phần mềm ứng dụng",
+                    "Chuyên viên thiết kế và quản trị website",
+                    "Tự khởi nghiệp trong lĩnh vực phát triển phần mềm",
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
+                      <p className="text-gray-200 leading-relaxed">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
             <motion.div
               variants={itemVariants}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100"
+              className="bg-white/10 backdrop-blur-sm p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/20 relative group"
             >
-              <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-                Thiết kế đồ họa
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Đào tạo: Thiết kế sản phẩm, bao bì sản phẩm, ấn phẩm quảng cáo
-                và xuất bản sách, báo, tạp chí; Biên tập, xử lý hình ảnh, video,
-                âm thanh; Thiết kế sản phẩm đồ họa truyền thông đa phương tiện;
-                Thiết kế đối tượng đồ họa cho Games, hoạt hình 2D; Thiết kế đối
-                tượng đồ họa quảng cáo sản phẩm 3D; Thiết kế các mô hình quảng
-                cáo không gian.
-              </p>
+              <div className="absolute -inset-px bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="text-2xl font-semibold text-blue-400 mb-6 flex items-center gap-3">
+                  <Palette className="w-8 h-8" />
+                  Thiết kế đồ họa
+                </h3>
+                <div className="space-y-4">
+                  {[
+                    "Thiết kế sản phẩm, bao bì sản phẩm, ấn phẩm quảng cáo và xuất bản sách, báo, tạp chí",
+                    "Biên tập, xử lý hình ảnh, video, âm thanh",
+                    "Thiết kế sản phẩm đồ họa truyền thông đa phương tiện",
+                    "Thiết kế đối tượng đồ họa cho Games, hoạt hình 2D",
+                    "Thiết kế đối tượng đồ họa quảng cáo sản phẩm 3D",
+                    "Thiết kế các mô hình quảng cáo không gian",
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
+                      <p className="text-gray-200 leading-relaxed">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
             <motion.div
               variants={itemVariants}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100 md:col-span-2 lg:col-span-1"
+              className="bg-white/10 backdrop-blur-sm p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/20 relative group md:col-span-2 lg:col-span-1"
             >
-              <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-                Truyền thông và mạng máy tính
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Đào tạo: Chuyên viên thiết kế, thi công và giám sát thi công các
-                hệ thống mạng máy tính; Chuyên viên quản trị mạng và hệ thống;
-                Chuyên viên quản trị bảo mật máy chủ, mạng và cơ sở dữ liệu;
-                Chuyên viên phân tích và thiết kế hệ thống thông tin; Chuyên
-                viên phát triển ứng dụng web; Chuyên viên truyền thông trực
-                tiếp, trực tuyến và quản trị truyền thông mạng xã hội.
-              </p>
+              <div className="absolute -inset-px bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+              <div className="relative">
+                <h3 className="text-2xl font-semibold text-blue-400 mb-6 flex items-center gap-3">
+                  <Network className="w-8 h-8" />
+                  Truyền thông và mạng máy tính
+                </h3>
+                <div className="space-y-4">
+                  {[
+                    "Chuyên viên thiết kế, thi công và giám sát thi công các hệ thống mạng máy tính",
+                    "Chuyên viên quản trị mạng và hệ thống",
+                    "Chuyên viên quản trị bảo mật máy chủ, mạng và cơ sở dữ liệu",
+                    "Chuyên viên phân tích và thiết kế hệ thống thông tin",
+                    "Chuyên viên phát triển ứng dụng web",
+                    "Chuyên viên truyền thông trực tiếp, trực tuyến và quản trị truyền thông mạng xã hội",
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
+                      <p className="text-gray-200 leading-relaxed">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

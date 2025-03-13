@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  gsap.registerPlugin(ScrollToPlugin);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,8 +34,7 @@ const Navbar = () => {
   const menuItems = [
     { id: "hero", name: "Trang chủ" },
     { id: "gioithieu", name: "Giới thiệu" },
-    { id: "quymodao-tao", name: "Quy mô đào tạo" },
-    { id: "cosovatchat", name: "Cơ sở vật chất" },
+    { id: "quymodaotao", name: "Quy mô đào tạo" },
     { id: "chuongtrinh", name: "Chương trình đào tạo" },
     { id: "sinhvientieubieu", name: "Sinh viên tiêu biểu" },
     { id: "hoatdong", name: "Hoạt động" },
@@ -72,7 +74,7 @@ const Navbar = () => {
                 onClick={() => smoothScroll(item.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                className={`relative px-3 py-2 text-lg font-medium transition-colors duration-200 ${
                   scrolling ? "text-gray-900" : "text-white"
                 }`}
               >

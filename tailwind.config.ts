@@ -13,6 +13,10 @@ const config: Config = {
         sans: ["var(--font-inter)", "sans-serif"], // Font mặc định
         serif: ["var(--font-merriweather)", "serif"], // Font tiêu đề
       },
+      background: {
+        "custom-gradient":
+          "linear-gradient(to bottom right, #111827, #1e40af, #6b21a8)",
+      },
     },
   },
   plugins: [tailwindcssAnimate],

@@ -104,22 +104,33 @@ export default function OutstandingStudents() {
       <section
         ref={sectionRef}
         id="sinhvientieubieu"
-        className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden"
+        className="py-20 bg-white relative overflow-hidden"
       >
-        {/* Background Decorations */}
-        <div className="absolute inset-0 bg-[url('/assets/patterns/grid.svg')] opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-purple-500/10" />
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, #000 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+              className="text-4xl md:text-5xl font-bold mb-6 relative inline-block"
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              SINH VIÊN TIÊU BIỂU KHOA CNTT
+              <span className="relative inline-block">
+                <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
+                  SINH VIÊN TIÊU BIỂU KHOA CNTT
+                </span>
+              </span>
             </motion.h2>
             <motion.div
               className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
@@ -140,7 +151,7 @@ export default function OutstandingStudents() {
               {students.map((student, index) => (
                 <motion.div
                   key={index}
-                  className="group relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-all duration-300"
+                  className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-100"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -160,13 +171,13 @@ export default function OutstandingStudents() {
                       <h3 className="text-xl font-bold text-white mb-2">
                         {student.name}
                       </h3>
-                      <div className="flex items-center gap-2 text-blue-300 mb-3">
+                      <div className="flex items-center gap-2 text-blue-100 mb-3">
                         <FaGraduationCap />
                         <span className="text-sm">HNIVC Graduate</span>
                       </div>
                       <button
                         onClick={() => setSelectedStudent(student)}
-                        className="w-full py-2 px-4 bg-blue-500/80 hover:bg-blue-500 text-white rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 text-sm"
+                        className="w-full py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm hover:shadow-lg hover:shadow-blue-500/20"
                       >
                         <span>Xem chi tiết</span>
                         <FaMedal className="text-yellow-300" />
@@ -178,14 +189,14 @@ export default function OutstandingStudents() {
             </motion.div>
           ) : (
             <motion.div
-              className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 relative"
+              className="bg-white shadow-lg rounded-xl border border-gray-100 p-8 relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
             >
               <button
                 onClick={() => setSelectedStudent(null)}
-                className="absolute top-4 left-4 text-white/80 hover:text-white transition-colors duration-300 flex items-center gap-2 text-sm"
+                className="absolute top-6 left-6 text-gray-600 hover:text-gray-900 transition-colors duration-300 flex items-center gap-2 text-sm hover:bg-gray-50 px-3 py-1.5 rounded-lg"
               >
                 <FaArrowLeft />
                 <span>Quay lại</span>
@@ -205,12 +216,12 @@ export default function OutstandingStudents() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="mt-4 p-4 bg-white/5 rounded-lg">
-                    <h2 className="text-4xl font-bold text-white mb-2">
+                  <div className="mt-6 p-6 bg-gray-50 rounded-lg border border-gray-100">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
                       {selectedStudent.name}
                     </h2>
-                    <div className="flex items-center gap-2 text-blue-300 text-lg">
-                      <FaInstagram />
+                    <div className="flex items-center gap-2 text-blue-600 text-lg">
+                      <FaInstagram className="w-5 h-5" />
                       <span>
                         @{selectedStudent.info.match(/IG: ([^\s.]+)/)?.[1]}
                       </span>
@@ -219,23 +230,23 @@ export default function OutstandingStudents() {
                 </motion.div>
 
                 <div className="flex-1">
-                  <div className="flex gap-3 mb-6">
+                  <div className="flex gap-3 mb-8">
                     <button
                       onClick={() => setActiveTab("info")}
-                      className={`px-4 py-2 rounded-lg text-lg transition-all duration-300 ${
+                      className={`px-6 py-2.5 rounded-lg text-lg transition-all duration-300 ${
                         activeTab === "info"
-                          ? "bg-blue-500 text-white"
-                          : "bg-white/5 text-white/70 hover:bg-white/10"
+                          ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/20"
+                          : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                       }`}
                     >
                       Thông tin
                     </button>
                     <button
                       onClick={() => setActiveTab("projects")}
-                      className={`px-4 py-2 rounded-lg text-lg transition-all duration-300 ${
+                      className={`px-6 py-2.5 rounded-lg text-lg transition-all duration-300 ${
                         activeTab === "projects"
-                          ? "bg-blue-500 text-white"
-                          : "bg-white/5 text-white/70 hover:bg-white/10"
+                          ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/20"
+                          : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                       }`}
                     >
                       Thành tựu
@@ -249,7 +260,7 @@ export default function OutstandingStudents() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="text-white/80 space-y-3"
+                        className="space-y-4"
                       >
                         {selectedStudent.info.split(".").map((line, index) => {
                           const trimmedLine = line.trim();
@@ -260,10 +271,12 @@ export default function OutstandingStudents() {
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: index * 0.1 }}
-                              className="flex items-start gap-3 bg-white/5 p-3 rounded-lg"
+                              className="flex items-start gap-4 bg-gray-50 p-4 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors duration-300"
                             >
-                              <div className="w-1.5 h-1.5 mt-2 rounded-full bg-blue-400" />
-                              <p className="text-lg">{trimmedLine}.</p>
+                              <div className="w-2 h-2 mt-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+                              <p className="text-lg text-gray-700 leading-relaxed">
+                                {trimmedLine}.
+                              </p>
                             </motion.div>
                           );
                         })}
@@ -274,27 +287,28 @@ export default function OutstandingStudents() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="bg-white/5 rounded-lg p-4"
+                        className="bg-gray-50 rounded-lg p-6 border border-gray-100"
                       >
-                        <h3 className="text-lg font-semibold text-white mb-4">
+                        <h3 className="text-xl font-semibold text-gray-900 mb-6">
                           Thành tựu nổi bật
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           {selectedStudent.projects.map((project, idx) => (
                             <Dialog key={idx}>
                               <DialogTrigger asChild>
                                 <motion.div
-                                  className="relative aspect-video rounded-lg overflow-hidden cursor-pointer"
+                                  className="relative aspect-video rounded-lg overflow-hidden cursor-pointer group"
                                   whileHover={{ scale: 1.02 }}
                                 >
                                   <Image
                                     src={project.image}
                                     alt={project.title}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                                   />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
-                                    <p className="text-white text-xs">
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                                    <p className="text-white text-sm font-medium">
                                       {project.title}
                                     </p>
                                   </div>

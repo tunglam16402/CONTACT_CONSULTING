@@ -4,6 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer utilities {
+  .bg-main-gradient {
+    @apply bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900;
+  }
+  .bg-title-gradient {
+    @apply bg-gradient-to-r from-blue-500 to-purple-500;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

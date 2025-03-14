@@ -472,7 +472,6 @@ export default function Home() {
     );
   }
 
-  // Add WebGL initialization effect
   return (
     <main className="text-gray-900">
       {/* Navbar */}

@@ -93,7 +93,7 @@ export default function TrainingFacilities() {
           {/* Header */}
           <div className="text-center mb-16">
             <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+              className="text-4xl md:text-5xl uppercase font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -124,7 +124,7 @@ export default function TrainingFacilities() {
                 <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center">
                   <FaUsers className="text-3xl text-blue-400" />
                 </div>
-                <h3 className="text-3xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <h3 className="text-3xl uppercase font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   Quy mô đào tạo
                 </h3>
                 <div className="space-y-4 text-center">
@@ -219,12 +219,14 @@ export default function TrainingFacilities() {
               <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <FaDesktop className="text-3xl text-purple-400" />
               </div>
-              <h3 className="text-4xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
+              <h3 className="text-4xl font-semibold uppercase bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-8">
                 Cơ sở vật chất hiện đại
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
                 <div className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10">
-                  <p className="text-3xl font-semibold text-blue-400 mb-2">07</p>
+                  <p className="text-3xl font-semibold text-blue-400 mb-2">
+                    07
+                  </p>
                   <p className="text-gray-300">Phòng thực hành hiện đại</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10">
@@ -234,7 +236,9 @@ export default function TrainingFacilities() {
                   <p className="text-gray-300">Gen 11</p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10">
-                  <p className="text-3xl font-semibold text-blue-400 mb-2">21</p>
+                  <p className="text-3xl font-semibold text-blue-400 mb-2">
+                    21
+                  </p>
                   <p className="text-gray-300">Màn hình LED</p>
                 </div>
               </div>

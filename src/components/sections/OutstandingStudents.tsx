@@ -80,7 +80,7 @@ const students: Student[] = [
 
 export default function OutstandingStudents() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { amount: 0.1 });
+  const isInView = useInView(sectionRef, { amount: 0.5 });
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [activeTab, setActiveTab] = useState("info");
 

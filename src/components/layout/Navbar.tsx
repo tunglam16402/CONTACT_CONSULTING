@@ -5,11 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import RegisterForm from "../forms/RegisterForm";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   gsap.registerPlugin(ScrollToPlugin);
 
@@ -127,6 +129,7 @@ const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setIsFormOpen(true)}
               className={`px-6 py-2 rounded-full text-base font-semibold transition-all duration-300 ${
                 scrolling
                   ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/30"
@@ -221,6 +224,7 @@ const Navbar = () => {
                   {/* Nút Đăng Ký Xét Tuyển Mobile */}
                   <motion.button
                     whileHover={{ x: 10 }}
+                    onClick={() => setIsFormOpen(true)}
                     className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xl font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300"
                   >
                     Đăng Ký Xét Tuyển
@@ -238,6 +242,8 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </div>
+      {/* Form Đăng Ký */}
+      <RegisterForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </motion.nav>
   );
 };

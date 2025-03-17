@@ -1,64 +1,64 @@
 import { google } from "googleapis";
-import { JWT } from "google-auth-library";
 
-// Cấu hình credentials
-const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
-const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
-const SHEET_NAME = "Đăng ký tư vấn";
-
-// Khởi tạo client
-const auth = new JWT({
-  email: process.env.GOOGLE_CLIENT_EMAIL,
-  key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-  scopes: SCOPES,
-});
-
-const sheets = google.sheets({ version: "v4", auth });
-
-// Interface cho dữ liệu đăng ký
+// Định nghĩa kiểu dữ liệu đăng ký
 export interface RegistrationData {
   fullName: string;
   phone: string;
   email: string;
-  address: string;
-  school: string;
   major: string;
-  grade: string;
-  interestedProgram: string;
   message?: string;
   registrationDate: string;
 }
 
+// Kiểm tra biến môi trường
+if (
+  !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
+  !process.env.GOOGLE_PRIVATE_KEY ||
+  !process.env.GOOGLE_SHEET_ID
+) {
+  throw new Error(
+    "⚠️ Thiếu thông tin cấu hình Google API trong biến môi trường."
+  );
+}
+
+// Khởi tạo Google Sheets API
+const auth = new google.auth.GoogleAuth({
+  credentials: {
+    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+  },
+  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+});
+
+const sheets = google.sheets({ version: "v4", auth });
+
 // Hàm thêm dữ liệu vào Google Sheets
 export async function appendToSheet(data: RegistrationData) {
   try {
-    const values = [
-      [
-        data.fullName,
-        data.phone,
-        data.email,
-        data.address,
-        data.school,
-        data.major,
-        data.grade,
-        data.interestedProgram,
-        data.message || "",
-        data.registrationDate,
-      ],
-    ];
-
     const response = await sheets.spreadsheets.values.append({
-      spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!A:J`,
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: "'danhsachsinhviendangkylienthong'!A:F",
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values,
+        values: [
+          [
+            data.fullName,
+            data.phone,
+            data.email,
+            data.major,
+            data.message || "",
+            data.registrationDate,
+          ],
+        ],
       },
     });
 
+    console.log("✅ Data appended successfully:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error appending to sheet:", error);
-    throw error;
+    console.error("❌ Lỗi khi lưu dữ liệu vào Google Sheets:", error);
+    throw new Error(
+      "Không thể lưu dữ liệu vào Google Sheets. Vui lòng thử lại."
+    );
   }
 }

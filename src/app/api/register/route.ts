@@ -7,9 +7,7 @@ import { appendToSheet, RegistrationData } from "@/lib/google-sheets";
 function validateRegistrationData(data: Partial<RegistrationData>): string[] {
   const errors: string[] = [];
 
-  if (!data.fullName?.trim()) {
-    errors.push("Họ và tên là bắt buộc");
-  }
+  if (!data.fullName?.trim()) errors.push("Họ và tên là bắt buộc");
 
   if (!data.phone?.trim()) {
     errors.push("Số điện thoại là bắt buộc");
@@ -23,32 +21,28 @@ function validateRegistrationData(data: Partial<RegistrationData>): string[] {
     errors.push("Email không hợp lệ");
   }
 
-  if (!data.address?.trim()) {
-    errors.push("Địa chỉ là bắt buộc");
-  }
-
-  if (!data.school?.trim()) {
-    errors.push("Trường học là bắt buộc");
-  }
-
-  if (!data.major?.trim()) {
-    errors.push("Chuyên ngành là bắt buộc");
-  }
-
-  if (!data.grade?.trim()) {
-    errors.push("Khóa học là bắt buộc");
-  }
-
-  if (!data.interestedProgram?.trim()) {
-    errors.push("Chương trình quan tâm là bắt buộc");
-  }
+  if (!data.major?.trim()) errors.push("Chuyên ngành là bắt buộc");
 
   return errors;
 }
 
 export async function POST(request: NextRequest) {
   try {
+    // Kiểm tra biến môi trường trước khi xử lý
+    if (
+      !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
+      !process.env.GOOGLE_PRIVATE_KEY ||
+      !process.env.GOOGLE_SHEET_ID
+    ) {
+      throw new ApiError(
+        "Thiếu thông tin Google API trong biến môi trường.",
+        500,
+        "ENV_ERROR"
+      );
+    }
+
     const body = await request.json();
+    console.log("📩 Received data:", body);
 
     // Validate dữ liệu
     const validationErrors = validateRegistrationData(body);
@@ -56,24 +50,41 @@ export async function POST(request: NextRequest) {
       throw new ApiError(validationErrors.join(", "), 400, "VALIDATION_ERROR");
     }
 
-    // Chuẩn bị dữ liệu
+    // Chuẩn bị dữ liệu đăng ký
     const registrationData: RegistrationData = {
       ...body,
       registrationDate: new Date().toISOString(),
     };
 
-    // Lưu vào Google Sheets
+    console.log("✅ Prepared data:", registrationData);
+
+    // Ghi dữ liệu vào Google Sheets
     await appendToSheet(registrationData);
 
     return createResponse(
       {
-        message: "Đăng ký thành công!",
+        message: "Thông tin đăng ký của bạn đã được tiếp nhận!",
         data: registrationData,
       },
       201
     );
   } catch (error) {
-    console.error("Registration error:", error);
-    return createErrorResponse(error as Error);
+    console.error(
+      "❌ Registration error:",
+      error instanceof Error ? error.message : error
+    );
+
+    // Xử lý lỗi từ Google API
+    if (error instanceof ApiError) {
+      return createErrorResponse(error);
+    } else {
+      return createErrorResponse(
+        new ApiError(
+          "Lỗi không xác định, vui lòng thử lại.",
+          500,
+          "UNKNOWN_ERROR"
+        )
+      );
+    }
   }
 }

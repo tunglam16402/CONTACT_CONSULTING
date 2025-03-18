@@ -143,19 +143,172 @@ export default function Hero() {
           animate="show"
         >
           {/* Animated Heading */}
-          <AnimatedHeading
-            text={`TƯ VẤN LIÊN THÔNG KHỐI 45, 46 
-              HỆ SONG BẰNG 
-              NGHỀ CÔNG NGHỆ THÔNG TIN 
-              & 
-              NGHỀ THIẾT KẾ ĐỒ HỌA`}
-          />
+          <div className="space-y-2 mt-8">
+            <AnimatedHeading
+              text="TƯ VẤN LIÊN THÔNG KHỐI 45, 46"
+              className="text-3xl md:text-4xl font-bold text-white"
+            />
+            <AnimatedHeading
+              text="HỆ SONG BẰNG"
+              className="text-2xl md:text-3xl font-semibold text-white/90 mb-8"
+            />
+            <div className="grid grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="group relative p-4 rounded-xl bg-white/5 backdrop-blur-sm border-2 border-white/20 hover:border-indigo-400/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+                ></motion.div>
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="p-2 rounded-lg bg-indigo-500/20 group-hover:bg-indigo-500/30 transition-colors duration-500"
+                  >
+                    <svg
+                      className="w-6 h-6 text-indigo-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </motion.div>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className="text-xl font-medium uppercase text-white/90 group-hover:text-white transition-colors duration-300"
+                  >
+                    Thiết kế đồ họa
+                  </motion.span>
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="group relative p-4 rounded-xl bg-white/5 backdrop-blur-sm border-2 border-white/20 hover:border-purple-400/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+                ></motion.div>
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="p-2 rounded-lg bg-purple-500/20 group-hover:bg-purple-500/30 transition-colors duration-500"
+                  >
+                    <svg
+                      className="w-6 h-6 text-purple-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </motion.div>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className="text-xl font-medium uppercase  text-white/90 group-hover:text-white transition-colors duration-300"
+                  >
+                    Công nghệ thông tin
+                  </motion.span>
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="group relative p-4 rounded-xl bg-white/5 backdrop-blur-sm border-2 border-white/20 hover:border-pink-400/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.3)]"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+                ></motion.div>
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="p-2 rounded-lg bg-pink-500/20 group-hover:bg-pink-500/30 transition-colors duration-500"
+                  >
+                    <svg
+                      className="w-6 h-6 text-pink-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                      />
+                    </svg>
+                  </motion.div>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className="text-xl font-medium uppercase text-white/90 group-hover:text-white transition-colors duration-300"
+                  >
+                    Mạng máy tính
+                  </motion.span>
+                </div>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="group relative p-4 rounded-xl bg-white/5 backdrop-blur-sm border-2 border-white/20 hover:border-red-400/50 transition-all duration-500 hover:shadow-[0_0_20px_rgba(239,68,68,0.3)]"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
+                ></motion.div>
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="p-2 rounded-lg bg-red-500/20 group-hover:bg-red-500/30 transition-colors duration-500"
+                  >
+                    <svg
+                      className="w-6 h-6 text-red-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                      />
+                    </svg>
+                  </motion.div>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    className="text-xl font-medium uppercase text-white/90 group-hover:text-white transition-colors duration-300"
+                  >
+                    Lập trình máy tính
+                  </motion.span>
+                </div>
+              </motion.div>
+            </div>
+          </div>
 
           {/* CTA Button */}
           <motion.div
             variants={textVariants}
             transition={{ duration: 0.8, delay: 1.8 }}
-            className="mt-8"
+            className="mt-12"
           >
             <button
               onClick={() => setIsRegisterFormOpen(true)}

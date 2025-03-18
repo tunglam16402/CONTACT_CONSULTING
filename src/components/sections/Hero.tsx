@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import AnimatedHeading from "@/components/ui/AnimatedHeading";
 import heroImage from "../../../public/assets/images/banner3.jpg";
+import { useState } from "react";
+import RegisterForm from "@/components/forms/RegisterForm";
 
 const containerVariants = {
   hidden: {},
@@ -20,6 +22,8 @@ const textVariants = {
 };
 
 export default function Hero() {
+  const [isRegisterFormOpen, setIsRegisterFormOpen] = useState(false);
+
   return (
     <section id="hero" className="relative h-screen overflow-hidden">
       {/* Animated Gradient Background */}
@@ -35,6 +39,75 @@ export default function Hero() {
             background-position: 0% 50%;
           }
         }
+        @keyframes pulseGlow {
+          0% {
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.8);
+          }
+          100% {
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+          }
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+        @keyframes gradient-x {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        @keyframes borderGlow {
+          0% {
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+          50% {
+            border-color: rgba(255, 255, 255, 0.5);
+          }
+          100% {
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+        @keyframes rotate {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes shine {
+          0% {
+            transform: translateX(-100%) rotate(45deg);
+          }
+          100% {
+            transform: translateX(100%) rotate(45deg);
+          }
+        }
+        @keyframes particleFloat {
+          0% { transform: translate(0, 0); }
+          50% { transform: translate(var(--tx), var(--ty)); }
+          100% { transform: translate(0, 0); }
+        }
+        @keyframes particleGlow {
+          0% { opacity: 0.5; }
+          50% { opacity: 1; }
+          100% { opacity: 0.5; }
       `}</style>
       <div
         className="absolute inset-0"
@@ -84,15 +157,35 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 1.8 }}
             className="mt-8"
           >
-            <a
-              href="#gioithieu"
-              className="inline-block px-8 py-4 bg-white text-indigo-700 text-2xl font-bold rounded-full shadow-2xl hover:scale-105 transition-transform"
+            <button
+              onClick={() => setIsRegisterFormOpen(true)}
+              className="group cursor-pointer relative inline-flex items-center justify-center px-12 py-4 text-2xl font-bold text-white uppercase transition-all duration-500 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 shadow-[0_0_30px_rgba(99,102,241,0.5)] hover:shadow-[0_0_40px_rgba(99,102,241,0.7)] hover:scale-105 active:scale-95 backdrop-blur-sm bg-opacity-90 border border-white/20 overflow-hidden"
+              style={{
+                animation:
+                  "pulseGlow 3s ease-in-out infinite, float 3s ease-in-out infinite, borderGlow 2s ease-in-out infinite",
+              }}
             >
-              Tìm Hiểu Ngay
-            </a>
+              <span className="relative z-10">Đăng Ký Xét Tuyển Ngay</span>
+              {/* Rotating gradient background */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 animate-gradient-x"></div>
+              {/* Shine effect */}
+              <div className="absolute inset-0 w-[200%] h-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rotate-45"></div>
+              {/* Rotating border */}
+              <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-white/30 transition-colors duration-500"></div>
+              {/* Pulsing glow */}
+              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),rgba(255,255,255,0))] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              {/* Rotating gradient overlay */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-rotate"></div>
+            </button>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Register Form */}
+      <RegisterForm
+        isOpen={isRegisterFormOpen}
+        onClose={() => setIsRegisterFormOpen(false)}
+      />
 
       {/* Floating Animated Shapes */}
       <motion.div

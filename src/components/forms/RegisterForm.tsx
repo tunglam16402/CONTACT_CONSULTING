@@ -3,12 +3,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import dynamic from "next/dynamic";
-const ToastContainer = dynamic(() =>
-  import("react-toastify").then((mod) => mod.ToastContainer)
-);
+import { useEffect, useState } from "react";
+import { debounce } from "lodash";
+import Swal from "sweetalert2";
+import confetti from "canvas-confetti";
+
 
 import {
   Dialog,
@@ -37,9 +38,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Tên phải có ít nhất 2 ký tự"),
-  phone: z.string().regex(/^[0-9]{10}$/, "Số điện thoại không hợp lệ"),
-  email: z.string().email("Email không hợp lệ"),
+  fullName: z
+    .string()
+    .min(1, "Vui lòng điền tên của bạn")
+    .min(2, "Tên phải có ít nhất 2 ký tự"),
+  phone: z
+    .string()
+    .min(1, "Vui lòng điền số điện thoại")
+    .regex(/^[0-9]{10}$/, "Số điện thoại phải có 10 chữ số"),
+  email: z
+    .string()
+    .min(1, "Vui lòng điền email")
+    .email("Email không đúng định dạng"),
   major: z.enum(["graphic-design", "udpm", "networking", "programming"], {
     required_error: "Vui lòng chọn ngành nghề",
   }),
@@ -52,6 +62,8 @@ interface RegisterFormProps {
 }
 
 export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
+  const [isTyping, setIsTyping] = useState<{ [key: string]: boolean }>({});
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,67 +72,92 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
       email: "",
       message: "",
     },
+    mode: "all",
+    delayError: 1000,
   });
+
+  const debouncedValidation = debounce(
+    async (field: keyof z.infer<typeof formSchema>) => {
+      setIsTyping((prev) => ({ ...prev, [field]: false }));
+      await form.trigger(field);
+    },
+    1000
+  );
+
+  useEffect(() => {
+    const subscription = form.watch((value, { name }) => {
+      if (name) {
+        setIsTyping((prev) => ({ ...prev, [name]: true }));
+        debouncedValidation(name as keyof z.infer<typeof formSchema>);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+      debouncedValidation.cancel();
+    };
+  }, [form.watch]);
+
+  // Hàm kiểm tra xem có nên hiển thị lỗi hay không
+  const shouldShowError = (fieldName: keyof z.infer<typeof formSchema>) => {
+    const hasError = form.formState.errors[fieldName];
+    const isFieldTyping = isTyping[fieldName];
+    return hasError && !isFieldTyping;
+  };
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      const response = await fetch("/api/register", {
+      // 🎉 Hiệu ứng pháo hoa khi thành công
+      confetti({
+        particleCount: 350,
+        spread: 200,
+        origin: { y: 0.6 },
+      });
+
+      // ✅ Hiển thị thông báo thành công ngay lập tức
+      await Swal.fire({
+        title: "Thành công!",
+        text: "Thông tin đăng ký của bạn đã được tiếp nhận! Bạn hãy theo dõi Email để nhận được những thông báo mới nhất nhé",
+        icon: "success",
+        timer: 4000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+
+      // Reset form và đóng dialog
+      form.reset();
+      onClose();
+
+      // Gửi dữ liệu đến server ở background
+      fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
+      }).catch((error) => {
+        console.error("Lỗi khi gửi dữ liệu:", error);
       });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Có lỗi xảy ra");
-      }
-
-      toast.success(result.message, {
-        autoClose: 4000,
-        position: "top-right",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-
-      form.reset();
-      onClose();
     } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Có lỗi xảy ra, vui lòng thử lại!"
-      );
+      Swal.fire({
+        title: "Lỗi!",
+        text:
+          error instanceof Error
+            ? error.message
+            : "Có lỗi xảy ra, vui lòng thử lại!",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   }
 
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-[400px] p-0 overflow-hidden border-none bg-transparent">
           <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
             {/* Header với hiệu ứng gradient và pattern */}
             <div className="relative bg-main-gradient p-6">
-              <div className="absolute inset-0 bg-[url('/assets/images/pattern.png')] opacity-10 animate-pulse"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10"></div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-              <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-shimmer"></div>
               <div className="relative flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/20 animate-pulse">
                   <svg
@@ -169,10 +206,26 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
                             <Input
                               placeholder="Nhập tên của bạn"
                               {...field}
-                              className="h-10 rounded-lg border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                              className="h-10 rounded-lg border-gray-200 focus:ring-1 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                              onBlur={() => {
+                                setIsTyping((prev) => ({
+                                  ...prev,
+                                  fullName: false,
+                                }));
+                                form.trigger("fullName");
+                              }}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                setIsTyping((prev) => ({
+                                  ...prev,
+                                  fullName: true,
+                                }));
+                              }}
                             />
                           </FormControl>
-                          <FormMessage className="text-xs text-red-500" />
+                          {shouldShowError("fullName") && (
+                            <FormMessage className="text-xs text-red-500 min-h-[20px]" />
+                          )}
                         </FormItem>
                       )}
                     />
@@ -188,10 +241,26 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
                             <Input
                               placeholder="Nhập số điện thoại của bạn"
                               {...field}
-                              className="h-10 rounded-lg border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                              className="h-10 rounded-lg border-gray-200 focus:ring-1 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                              onBlur={() => {
+                                setIsTyping((prev) => ({
+                                  ...prev,
+                                  phone: false,
+                                }));
+                                form.trigger("phone");
+                              }}
+                              onChange={(e) => {
+                                field.onChange(e);
+                                setIsTyping((prev) => ({
+                                  ...prev,
+                                  phone: true,
+                                }));
+                              }}
                             />
                           </FormControl>
-                          <FormMessage className="text-xs text-red-500" />
+                          {shouldShowError("phone") && (
+                            <FormMessage className="text-xs text-red-500 min-h-[20px]" />
+                          )}
                         </FormItem>
                       )}
                     />
@@ -209,10 +278,23 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
                           <Input
                             placeholder="Nhập email của bạn"
                             {...field}
-                            className="h-10 rounded-lg border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                            className="h-10 rounded-lg border-gray-200 focus:ring-1 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                            onBlur={() => {
+                              setIsTyping((prev) => ({
+                                ...prev,
+                                email: false,
+                              }));
+                              form.trigger("email");
+                            }}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              setIsTyping((prev) => ({ ...prev, email: true }));
+                            }}
                           />
                         </FormControl>
-                        <FormMessage className="text-xs text-red-500" />
+                        {shouldShowError("email") && (
+                          <FormMessage className="text-xs text-red-500 min-h-[20px]" />
+                        )}
                       </FormItem>
                     )}
                   />
@@ -226,11 +308,15 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
                           Ngành nghề
                         </FormLabel>
                         <Select
-                          onValueChange={field.onChange}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            setIsTyping((prev) => ({ ...prev, major: false }));
+                            form.trigger("major");
+                          }}
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="h-10 rounded-lg border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10">
+                            <SelectTrigger className="h-10 rounded-lg border-gray-200 focus:ring-1 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10">
                               <SelectValue placeholder="Chọn ngành nghề" />
                             </SelectTrigger>
                           </FormControl>
@@ -249,7 +335,9 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
                             </SelectItem>
                           </SelectContent>
                         </Select>
-                        <FormMessage className="text-xs text-red-500" />
+                        {shouldShowError("major") && (
+                          <FormMessage className="text-xs text-red-500 min-h-[20px]" />
+                        )}
                       </FormItem>
                     )}
                   />
@@ -265,11 +353,27 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
                         <FormControl>
                           <Textarea
                             placeholder="Nhập tin nhắn của bạn"
-                            className="resize-none rounded-lg border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 min-h-[80px] bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
+                            className="resize-none rounded-lg border-gray-200 focus:ring-1 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 min-h-[80px] bg-white/50 backdrop-blur-sm hover:border-blue-300 hover:shadow-sm hover:shadow-blue-500/10"
                             {...field}
+                            onBlur={() => {
+                              setIsTyping((prev) => ({
+                                ...prev,
+                                message: false,
+                              }));
+                              form.trigger("message");
+                            }}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              setIsTyping((prev) => ({
+                                ...prev,
+                                message: true,
+                              }));
+                            }}
                           />
                         </FormControl>
-                        <FormMessage className="text-xs text-red-500" />
+                        {shouldShowError("message") && (
+                          <FormMessage className="text-xs text-red-500 min-h-[20px]" />
+                        )}
                       </FormItem>
                     )}
                   />

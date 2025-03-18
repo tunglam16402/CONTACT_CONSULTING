@@ -10,6 +10,34 @@ export interface RegistrationData {
   registrationDate: string;
 }
 
+// Hàm chuyển đổi tên ngành nghề
+function convertMajorToVietnamese(major: string): string {
+  const majorMap: { [key: string]: string } = {
+    "graphic-design": "Thiết kế đồ hoạ",
+    udpm: "Công nghệ thông tin - UDPM",
+    networking: "Truyền thông và mạng máy tính",
+    programming: "Lập trình máy tính",
+  };
+  return majorMap[major] || major;
+}
+
+// Hàm format thời gian theo múi giờ Việt Nam
+function formatDateTime(isoString: string): string {
+  const date = new Date(isoString);
+  // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
+  const vnTime = new Date(date.getTime() + 7 * 60 * 60 * 1000);
+
+  return vnTime.toLocaleString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+}
+
 // Kiểm tra biến môi trường
 if (
   !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
@@ -45,9 +73,9 @@ export async function appendToSheet(data: RegistrationData) {
             data.fullName,
             data.phone,
             data.email,
-            data.major,
+            convertMajorToVietnamese(data.major),
             data.message || "",
-            data.registrationDate,
+            formatDateTime(data.registrationDate), // Format thời gian
           ],
         ],
       },

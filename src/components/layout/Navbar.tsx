@@ -132,7 +132,7 @@ const Navbar = () => {
               onClick={() => setIsFormOpen(true)}
               className={`px-6 py-2 rounded-full cursor-pointer text-base font-semibold transition-all duration-300 ${
                 scrolling
-                  ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/30"
+                  ? "bg-main-gradient text-white shadow-lg hover:shadow-xl hover:shadow-blue-500/30"
                   : "bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20"
               }`}
             >

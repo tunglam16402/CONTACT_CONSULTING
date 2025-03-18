@@ -115,7 +115,7 @@ const Cooperate = () => {
           />
         </div>
 
-        <div className="max-w-[2000px] mx-auto px-6 relative">
+        <div className="w-full mx-auto px-6 relative">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -123,10 +123,10 @@ const Cooperate = () => {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 max-w-3xl">
+            <h2 className="text-4xl text-center md:text-6xl font-bold text-gray-900 mb-6 ">
               <span className="">THỰC TẬP DOANH NGHIỆP VÀ HỢP TÁC QUỐC TẾ</span>
             </h2>
-            <p className="text-gray-600 text-xl max-w-2xl">
+            <p className="text-gray-600 text-center text-xl">
               Đồng hành cùng các tập đoàn và công ty công nghệ hàng đầu Việt Nam
             </p>
           </motion.div>

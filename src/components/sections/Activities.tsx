@@ -78,8 +78,7 @@ const Activities = () => {
         </motion.div>
 
         {/* Decorative Background Images */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Left Side Decoration */}
+        {/* <div className="absolute inset-0 overflow-hidden">
           <motion.div
             className="absolute -left-32 top-1/4 w-96 h-96"
             animate={{
@@ -98,10 +97,10 @@ const Activities = () => {
               fill
               className="object-contain opacity-10"
             />
-          </motion.div>
+          </motion.div> */}
 
           {/* Right Side Decoration */}
-          <motion.div
+          {/* <motion.div
             className="absolute -right-32 top-1/3 w-96 h-96"
             animate={{
               rotate: [360, 0],
@@ -119,10 +118,10 @@ const Activities = () => {
               fill
               className="object-contain opacity-10"
             />
-          </motion.div>
+          </motion.div> */}
 
           {/* Center Decoration */}
-          <motion.div
+          {/* <motion.div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]"
             animate={{
               rotate: [0, 360],
@@ -140,8 +139,8 @@ const Activities = () => {
               fill
               className="object-contain opacity-5"
             />
-          </motion.div>
-        </div>
+          </motion.div> */}
+        {/* </div> */}
 
         {/* Floating Elements */}
         <div className="absolute inset-0 overflow-hidden">

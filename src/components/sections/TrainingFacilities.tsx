@@ -83,7 +83,7 @@ export default function TrainingFacilities() {
         className="relative py-24 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden"
       >
         {/* Decorative elements */}
-        <div className="absolute inset-0 bg-[url('/assets/patterns/grid.svg')] opacity-10" />
+        {/* <div className="absolute inset-0 bg-[url('/assets/patterns/grid.svg')] opacity-10" /> */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-purple-500/10" />
 
         <motion.div

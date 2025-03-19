@@ -4,17 +4,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import "react-toastify/dist/ReactToastify.css";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
 import Swal from "sweetalert2";
 import confetti from "canvas-confetti";
 
-
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
@@ -96,7 +93,7 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
       subscription.unsubscribe();
       debouncedValidation.cancel();
     };
-  }, [form.watch]);
+  }, [form, form.watch, debouncedValidation]);
 
   // Hàm kiểm tra xem có nên hiển thị lỗi hay không
   const shouldShowError = (fieldName: keyof z.infer<typeof formSchema>) => {
@@ -107,47 +104,51 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      // 🎉 Hiệu ứng pháo hoa khi thành công
-      confetti({
-        particleCount: 350,
-        spread: 200,
-        origin: { y: 0.6 },
-      });
+      if (typeof window !== "undefined") {
+        // 🎉 Hiệu ứng pháo hoa khi thành công
+        confetti({
+          particleCount: 350,
+          spread: 200,
+          origin: { y: 0.6 },
+        });
 
-      // ✅ Hiển thị thông báo thành công ngay lập tức
-      await Swal.fire({
-        title: "Thành công!",
-        text: "Thông tin đăng ký của bạn đã được tiếp nhận! Bạn hãy theo dõi Email để nhận được những thông báo mới nhất nhé",
-        icon: "success",
-        timer: 4000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
+        // ✅ Hiển thị thông báo thành công ngay lập tức
+        await Swal.fire({
+          title: "Thành công!",
+          text: "Thông tin đăng ký của bạn đã được tiếp nhận! Bạn hãy theo dõi Email để nhận được những thông báo mới nhất nhé",
+          icon: "success",
+          timer: 4000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+      }
 
       // Reset form và đóng dialog
       form.reset();
       onClose();
 
       // Gửi dữ liệu đến server ở background
-      fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).catch((error) => {
-        console.error("Lỗi khi gửi dữ liệu:", error);
-      });
+      setTimeout(() => {
+        fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }).catch(console.error);
+      }, 100);
     } catch (error) {
-      Swal.fire({
-        title: "Lỗi!",
-        text:
-          error instanceof Error
-            ? error.message
-            : "Có lỗi xảy ra, vui lòng thử lại!",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      if (typeof window !== "undefined") {
+        Swal.fire({
+          title: "Lỗi!",
+          text:
+            error instanceof Error
+              ? error.message
+              : "Có lỗi xảy ra, vui lòng thử lại!",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     }
   }
 

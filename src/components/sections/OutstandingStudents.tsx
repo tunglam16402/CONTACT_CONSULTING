@@ -7,7 +7,6 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import LazyRender from "@/components/ui/LazyRender";
 import {
   FaGraduationCap,
-  FaMedal,
   FaArrowLeft,
   FaInstagram,
 } from "react-icons/fa";

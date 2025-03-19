@@ -99,8 +99,8 @@ const Activities = () => {
             />
           </motion.div> */}
 
-          {/* Right Side Decoration */}
-          {/* <motion.div
+        {/* Right Side Decoration */}
+        {/* <motion.div
             className="absolute -right-32 top-1/3 w-96 h-96"
             animate={{
               rotate: [360, 0],
@@ -120,8 +120,8 @@ const Activities = () => {
             />
           </motion.div> */}
 
-          {/* Center Decoration */}
-          {/* <motion.div
+        {/* Center Decoration */}
+        {/* <motion.div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]"
             animate={{
               rotate: [0, 360],

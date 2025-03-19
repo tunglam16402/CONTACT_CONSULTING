@@ -15,6 +15,7 @@ import {
 interface Student {
   name: string;
   info: string;
+  study: string;
   projects: { title: string; image: string }[];
   photo: string;
 }
@@ -23,6 +24,7 @@ const students: Student[] = [
   {
     name: "Bùi Đức Toàn",
     info: "Sinh ngày: 15/12/2004. IG: toanduc62. Học sinh hệ trung cấp 9+ liên thông lên cao đẳng tại lớp CĐ43TKDH-LT, đã tốt nghiệp tại trường HNIVC. Hiện nay đang học Đại Học Mỹ Thuật Công Nghiệp.",
+    study: "Hệ trung cấp 9+ liên thông lên hệ cao đẳng tại lớp CĐ43TKDH-LT",
     projects: [
       {
         title: "Sản phẩm về thiết kế poster cho ban nhạc Deftones",
@@ -39,6 +41,7 @@ const students: Student[] = [
   {
     name: "Bùi Minh Đức",
     info: "Sinh ngày: 04/09/2003, IG: duc_ko_gay. Học sinh hệ trung cấp 9+ liên thông lên cao đẳng tại lớp CĐ43TKDH-LT, đã tốt nghiệp tại trường HNIVC. Hiện nay đang học Đại Học Mỹ Thuật Công Nghiệp.",
+    study: "Hệ trung cấp 9+ liên thông lên hệ cao đẳng tại lớp CĐ43TKDH-LT",
     projects: [
       {
         title:
@@ -56,6 +59,7 @@ const students: Student[] = [
   {
     name: "Khúc Tuấn Linh",
     info: "Sinh ngày: 29/01/2001.Là học sinh hệ Cao Đẳng K43 Khoa CNTT.Được tuyên dương là 1 trong 100 em học sinh, sinh viên giáo dục nghề nghiệp xuất sắc, tiêu biểu năm 2022.Đạt giải vàng trong kì thi kỹ năng nghề Quốc Gia về quản trị mạng năm 2022.Hiện đang là cán bộ tại nhà trường HNIVC.",
+    study: "Hệ Cao Đẳng K43 Khoa CNTT",
     projects: [
       {
         title:
@@ -68,6 +72,7 @@ const students: Student[] = [
   {
     name: "Doãn Tuấn Phong",
     info: "Học Trung Cấp ESTIH liên thông cao đẳng quản trị mạng tại HNIVC.Giải nhất quốc gia nghề quản trị mạng hệ thống CNTT năm 2020.Hiện đang làm ở CMC Telecom.Đứng thứ 6 trong cuộc thi Asean Skills Camp",
+    study: "Trung Cấp ESTIH liên thông cao đẳng quản trị mạng tại HNIVC",
     projects: [
       {
         title: "Giải nhất quốc gia nghề quản trị mạng hệ thống CNTT năm 2020",
@@ -143,7 +148,7 @@ export default function OutstandingStudents() {
 
           {selectedStudent === null ? (
             <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
@@ -151,37 +156,33 @@ export default function OutstandingStudents() {
               {students.map((student, index) => (
                 <motion.div
                   key={index}
-                  className="group relative overflow-hidden rounded-xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-100"
+                  className="group relative cursor-pointer"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  onClick={() => setSelectedStudent(student)}
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-[400px] bg-gradient-to-b from-blue-500/20 to-purple-500/20 p-1">
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-purple-500/10 rounded-[100px] z-10" />
                     <Image
                       src={student.photo}
                       alt={student.name}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover rounded-[400px] transition-all duration-500 group-hover:scale-105 group-hover:brightness-45"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                  </div>
 
-                    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="text-xl font-bold text-white mb-2">
+                  {/* Hover Info */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="w-full h-full flex flex-col items-center justify-center p-8 rounded-[100px]">
+                      <h3 className="text-3xl font-bold text-white mb-4 text-center">
                         {student.name}
                       </h3>
-                      <div className="flex items-center gap-2 text-blue-100 mb-3">
-                        <FaGraduationCap />
-                        <span className="text-sm">HNIVC Graduate</span>
+                      <div className="flex flex-col justify-center items-center gap-3 text-blue-100 text-lg">
+                        <FaGraduationCap className="w-6 h-6" />
+                        <span className="text-center">{student.study}</span>
                       </div>
-                      <button
-                        onClick={() => setSelectedStudent(student)}
-                        className="w-full py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm hover:shadow-lg hover:shadow-blue-500/20"
-                      >
-                        <span>Xem chi tiết</span>
-                        <FaMedal className="text-yellow-300" />
-                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -208,7 +209,7 @@ export default function OutstandingStudents() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                 >
-                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg">
+                  <div className="relative aspect-[3/4] rounded-[60px] overflow-hidden shadow-lg">
                     <Image
                       src={selectedStudent.photo}
                       alt={selectedStudent.name}

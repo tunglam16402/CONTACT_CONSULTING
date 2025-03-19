@@ -102,7 +102,7 @@ export default function TrainingFacilities() {
               Quy Mô Đào Tạo & Cơ Sở Vật Chất
             </motion.h2>
             <motion.div
-              className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"
+              className="w-20 h-1 bg-title-gradient mx-auto rounded-full"
               initial={{ width: 0 }}
               whileInView={{ width: 80 }}
               viewport={{ once: true }}

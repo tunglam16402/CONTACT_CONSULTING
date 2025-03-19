@@ -157,7 +157,7 @@ export default function RegisterForm({ isOpen, onClose }: RegisterFormProps) {
         <DialogContent className="sm:max-w-[400px] p-0 overflow-hidden border-none bg-transparent">
           <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
             {/* Header với hiệu ứng gradient và pattern */}
-            <div className="relative bg-main-gradient p-6">
+            <div className="relative bg-title-gradient p-6">
               <div className="relative flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center ring-2 ring-white/20 animate-pulse">
                   <svg

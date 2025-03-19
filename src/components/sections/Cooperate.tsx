@@ -123,7 +123,7 @@ const Cooperate = () => {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="text-4xl text-center md:text-6xl font-bold text-gray-900 mb-6 ">
+            <h2 className="text-4xl text-center md:text-5xl font-bold text-gray-900 mb-6 ">
               <span className="">THỰC TẬP DOANH NGHIỆP VÀ HỢP TÁC QUỐC TẾ</span>
             </h2>
             <p className="text-gray-600 text-center text-xl">

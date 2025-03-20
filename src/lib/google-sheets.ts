@@ -24,10 +24,7 @@ function convertMajorToVietnamese(major: string): string {
 // Hàm format thời gian theo múi giờ Việt Nam
 function formatDateTime(isoString: string): string {
   const date = new Date(isoString);
-  // Chuyển đổi sang múi giờ Việt Nam (UTC+7)
-  const vnTime = new Date(date.getTime() + 7 * 60 * 60 * 1000);
-
-  return vnTime.toLocaleString("vi-VN", {
+  return date.toLocaleString("vi-VN", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -35,6 +32,7 @@ function formatDateTime(isoString: string): string {
     minute: "2-digit",
     second: "2-digit",
     hour12: false,
+    timeZone: "Asia/Ho_Chi_Minh", // Đảm bảo đúng múi giờ
   });
 }
 

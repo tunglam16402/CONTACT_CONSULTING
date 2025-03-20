@@ -94,7 +94,7 @@ const Navbar = () => {
                   onClick={() => smoothScroll(item.id)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`relative px-4 py-2 text-lg font-semibold transition-all duration-300 ${
+                  className={`relative px-4 py-2 text-[15px] font-semibold transition-all duration-300 ${
                     scrolling
                       ? activeSection === item.id
                         ? "text-blue-600"
@@ -136,14 +136,7 @@ const Navbar = () => {
                   : "bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20"
               }`}
             >
-              Đăng Ký Xét Tuyển
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-                className="ml-2 inline-block"
-              >
-                →
-              </motion.span>
+              Đăng ký xét tuyển
             </motion.button>
           </div>
 
@@ -199,6 +192,16 @@ const Navbar = () => {
             >
               <div className="pt-24 pb-10 px-6">
                 <div className="flex flex-col space-y-6">
+                  {/* Nút Đăng Ký Xét Tuyển Mobile - Đặt lên đầu */}
+                  <motion.button
+                    whileHover={{ x: 10 }}
+                    onClick={() => setIsFormOpen(true)}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xl font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300"
+                  >
+                    Đăng Ký Xét Tuyển
+                  </motion.button>
+
+                  {/* Menu Items */}
                   {menuItems.map((item) => (
                     <motion.button
                       key={item.id}
@@ -220,22 +223,6 @@ const Navbar = () => {
                       )}
                     </motion.button>
                   ))}
-
-                  {/* Nút Đăng Ký Xét Tuyển Mobile */}
-                  <motion.button
-                    whileHover={{ x: 10 }}
-                    onClick={() => setIsFormOpen(true)}
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xl font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300"
-                  >
-                    Đăng Ký Xét Tuyển
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ repeat: Infinity, duration: 1.5 }}
-                      className="ml-2 inline-block"
-                    >
-                      →
-                    </motion.span>
-                  </motion.button>
                 </div>
               </div>
             </motion.div>

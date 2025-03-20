@@ -78,7 +78,7 @@ const students: Student[] = [
         image: "/assets/images/doantuanphong_achiement.jpg",
       },
     ],
-    photo: "/assets/images/SVtieubieu4.png",
+    photo: "/assets/images/doantuanphong.jpg",
   },
 ];
 
@@ -162,13 +162,13 @@ export default function OutstandingStudents() {
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setSelectedStudent(student)}
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-[400px] bg-gradient-to-b from-blue-500/20 to-purple-500/20 p-1">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-[500px] bg-gradient-to-b from-blue-500/20 to-purple-500/20 p-1">
                     <div className="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-purple-500/10 rounded-[100px] z-10" />
                     <Image
                       src={student.photo}
                       alt={student.name}
                       fill
-                      className="object-cover rounded-[400px] transition-all duration-500 group-hover:scale-105 group-hover:brightness-45"
+                      className="object-cover rounded-[500px] transition-all duration-500 group-hover:scale-105 group-hover:brightness-45"
                     />
                   </div>
 
